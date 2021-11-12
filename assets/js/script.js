@@ -11,9 +11,12 @@ var examQuestion = document.querySelector("#examQuestion");
 startBtn.addEventListener('click', startQuiz());
 //need to hide start button after clicking it
 
-function startBtnHide () {
+function startBtnHide() {
 if (startBtn === "visible") {
- document.querySelector('.startBtn').style.display("none");
+    element.textContent = "";
+ element.dataset.state = "hidden";
+} else {
+element.dataset.state = "visible";
 }
     
 }
