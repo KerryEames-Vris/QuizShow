@@ -1,6 +1,19 @@
 .pageTitle {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: black;
 }
 .examQuestion {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: black;
+}
+
+.startColor {
+  background-color: rgb(96, 32, 156);
+  color: white;
+}
+
+.root {
+  background-color: rgb(65, 114, 65);
 }
