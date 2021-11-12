@@ -11,6 +11,7 @@ var examQuestion = document.querySelector("#examQuestion");
 startBtn.addEventListener('click', startQuiz());
 //need to hide start button after clicking it
 
+// I couldn't even make this first concept work. I even tried to copy and paste it right in and change what I needed and I couldn't figure it out.
 function startBtnHide() {
 if (startBtn === "visible") {
     element.textContent = "";
