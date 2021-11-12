@@ -1,18 +1,21 @@
-var startBtn = $("#startBtn");
-var clickBtn1 = $("#examBtn1");
-var clickBtn2 = $("#examBtn2");
-var clickBtn3 = $("#examBtn3");
-var clickBtn4 = $("#examBtn4");
+var startBtn = document.querySelector("#startBtn");
+var clickBtn1 = document.querySelector("#examBtn1");
+var clickBtn2 = document.querySelector("#examBtn2");
+var clickBtn3 = document.querySelector("#examBtn3");
+var clickBtn4 = document.querySelector("#examBtn4");
 
-var examQuestion = $("#examQuestion");
+var examQuestion = document.querySelector("#examQuestion");
 
 //need an event to start the quiz
 
-startBtn.eventlistener("click", startQuiz());
+startBtn.addEventListener('click', startQuiz());
 //need to hide start button after clicking it
 
 function startBtnHide () {
-    startBtn.style.visibility = "hidden";
+if (startBtn === "visible") {
+ document.querySelector('.startBtn').style.display("none");
+}
+    
 }
 //need to populate question and answers
 
@@ -23,6 +26,6 @@ function startQuiz() {
 
 //need an event to select answers
 
-if 
+
 
 //need an event move to next question
