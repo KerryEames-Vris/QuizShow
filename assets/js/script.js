@@ -9,7 +9,9 @@ var quizShow = document.querySelector("#quizShow");
 var bigQuestions = document.querySelector(".choice")
 var bigClock = document.querySelector("#bigClock")
 var scoreBoard = document.querySelector("#scoreBoard")
+var leaderBoard = document.querySelector("#leaderboard")
 var finalScore = document.querySelector("#finalScore")
+var initials = document.querySelector(".initials");
 var questionIndex = 0
 var time = 15;
 var score = 0;
@@ -109,12 +111,12 @@ function renderQuestions() {
     var rows = "";
     getLocal().forEach(function ({ initials, score }, i) {
       rows += `<tr>
-          <th scope="row">${i + 1}</th>
-          <td id="userName" colspan="1">${initials}</td>
-          <td id="userScore">${score}</td>
+          <th scope="row">${i + 1}/</th>
+          <td id="userName" colspan="1">${initials}/</td>
+          <td id="userScore">${score} | </td>
         </tr>`;
     });
-    scoreBoard.innerHTML = rows;
+    leaderBoard.innerHTML = rows;
   }
 
 startBtn.addEventListener("click", function startQuiz(event) {
@@ -144,13 +146,14 @@ document.addEventListener("click", function (event) {
     }
     if (questionIndex >= 5) {
       endGame();
-    }
+    } else {
     document
       .querySelectorAll(".choice")
       [questionIndex].classList.add("invisible");
     document
       .querySelectorAll(".choice")
       [++questionIndex].classList.remove("invisible");
+    }
   }
 });
 
@@ -158,13 +161,10 @@ document.addEventListener("click", function (event) {
     if (event.target.classList.contains("endBtn")) {
       event.preventDefault();
       setLocal();
-      window.location.href = "leaderboard.html";
+      renderLeaderBoard()
     }
   });
 
-  if (document.getElementById("leaderBoard")) {
-    renderLeaderBoard();
-  }
 //local storage
 
 function setLocal() {
