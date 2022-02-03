@@ -1,7 +1,7 @@
 # Quizshow
 
 ## Description
-I wanted to make a quiz you could take on some subject I hadn't actually decided on but when I sat down for it all the concepts mixed together in my mind and I couldn't make a single function work. It's supposed to start a timer and then make you answer several questions. It would record your score and your initials.
+I wanted to make a quiz you could take on some animal factoids I happen to know off the top of my head. The questions crawl down the screen but you can follow them down and scroll back to the top afterwards. The timer runs and is added or subtracted from based on your answers. You can submit your score and have it shown on the screen from local memory as well.
 
 ## Installation
 1. Select the clone option from the repository page and copy the SSH link.
