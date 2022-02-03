@@ -18,31 +18,44 @@
     <div>
       <h1 class="pageTitle">Give It Your Best Shot</h1>
       <h2 class="examQuestion">
-        Has enough of the classes sunk in for me? Click the buttons below to
-        find out!
+        Welcome to the Quiz Show! Think you know enough about animals to beat
+        the Timer?
       </h2>
     </div>
-
-    <hr />
-    <div class="d-grid gap-2 col-4 mx-auto">
-      <button class="btn buttonColor" id="examBtn1" type="button">No</button>
-      <button class="btn buttonColor" id="examBtn2" type="button">Nah</button>
-      <button class="btn buttonColor" id="examBtn3" type="button">Nope</button>
-      <button class="btn buttonColor" id="examBtn4" type="button">
-        Not enough
-      </button>
-    </div>
-    <hr />
     <div>
       <button
         type="button"
-        class="btn buttonColor btn-lg customHidden col-4 d-grid gap-2 mx-auto"
+        class="btn buttonColor btn-lg col-4 d-grid gap-2 mx-auto"
         id="startBtn"
-        data-state="visible"
       >
         Begin
       </button>
+      <div class="d-flex flex-row col-4 d-grid gap-2 mx-auto">
+        <h1 class="invisible" id="bigClock">Time Remaining:</h1>
+        <h1 id="timer"></h1>
+      </div>
+      <div class="invisible pageTitle" id="scoreBoard">
+        <h2>You're all done, your final score is <span id="finalScore"></span>! record your initials and hit submit!</h2>
+        <form class="pageTitle">
+          <input type="text" class="initials"/>
+          <button type="submit"
+          class="btn buttonColor endBtn">Submit</button>
+        </form>
+        <div class="pageTitle"><button
+          type="button"
+          id="leaderBoardBtn"
+          class="btn buttonColor"
+          onclick="window.location.href = './leaderboard.html'"
+        >
+          LEADERBOARD
+        </button></div>
+      </div>
     </div>
+
+    <hr />
+    <div class="container col-12 min-vh-100 w-100">
+    <div id="quizShow"></div>
+  </div>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

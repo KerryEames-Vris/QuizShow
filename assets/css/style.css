@@ -17,3 +17,13 @@
 .root {
   background-color: rgb(65, 114, 65);
 }
+
+.wrong-answer:focus {
+  background-color: red;
+  color: white;
+}
+
+.correct-answer:focus {
+background-color: rgb(0, 185, 0);
+color: white;
+}

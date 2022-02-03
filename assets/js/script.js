@@ -3,33 +3,182 @@ var clickBtn1 = document.querySelector("#examBtn1");
 var clickBtn2 = document.querySelector("#examBtn2");
 var clickBtn3 = document.querySelector("#examBtn3");
 var clickBtn4 = document.querySelector("#examBtn4");
-
 var examQuestion = document.querySelector("#examQuestion");
+var countdown = document.querySelector("#timer");
+var quizShow = document.querySelector("#quizShow");
+var bigQuestions = document.querySelector(".choice")
+var bigClock = document.querySelector("#bigClock")
+var scoreBoard = document.querySelector("#scoreBoard")
+var finalScore = document.querySelector("#finalScore")
+var questionIndex = 0
+var time = 15;
+var score = 0;
+var timer;
 
-//need an event to start the quiz
+var questions = [
+  {
+    newQuestion: "Which of these animals can fly?",
+    newAnswers: ["Dog", "Cat", "Bird", "Walrus"],
+    correctAnswer: "Bird",
+  },
+  {
+    newQuestion: "Which of these animals is NOT a standard mammal?",
+    newAnswers: ["Racoon", "Squirrel", "Bat", "Opossum"],
+    correctAnswer: "Opossum",
+  },
+  {
+    newQuestion:
+      "Many lizards will sacrifice what body part to escape a predator?",
+    newAnswers: ["Leg", "Tail", "Eye", "Tongue"],
+    correctAnswer: "Tail"
+  },
+  {
+    newQuestion:
+      "Which of the following birds would be considered a bird of prey?",
+    newAnswers: ["Pigeon", "Blue Jay", "Osprey", "Kiwi"],
+    correctAnswer: "Osprey",
+  },
+  {
+    newQuestion: "An elk can be listed under which of the following?",
+    newAnswers: [
+      "Large Ungulates",
+      "Horned Mammals",
+      "Furred Bipedals",
+      "Toothed Piscines",
+    ],
+    correctAnswer: "Large Ungulates",
+  },
+  {
+    newQuestion: "Which of these birds is the heaviest?",
+    newAnswers: [
+      "Harpy Eagle",
+      "Emperor Penguin",
+      "Great Albatross",
+      "Turkey Vulture",
+    ],
+    correctAnswer: "Emperor Penguin",
+  },
+];
 
-startBtn.addEventListener('click', startQuiz());
-//need to hide start button after clicking it
-
-// I couldn't even make this first concept work. I even tried to copy and paste it right in and change what I needed and I couldn't figure it out.
-function startBtnHide() {
-if (startBtn === "visible") {
-    element.textContent = "";
- element.dataset.state = "hidden";
-} else {
-element.dataset.state = "visible";
+function hideStartBtn() {
+  startBtn.setAttribute("class", "invisible");
+bigClock.classList.remove("invisible")
 }
-    
-}
-//need to populate question and answers
 
-function startQuiz() {
-    startBtnHide();
-
+function endGame() {
+  quizShow.classList.add("invisible")
+  scoreBoard.classList.remove("invisible")
+  finalScore.textContent = score;
 }
+
+function clock() {
+  time--;
+  countdown.innerHTML = time;
+  if (time <= 0) {
+    clearInterval(timer);
+    endGame();
+  }
+}
+
+function renderQuestions() {
+    var questionList = "";
+    questions.forEach(function (question, index) {
+      let choices = "";
+      question.newAnswers.forEach(function (choice, index) {
+        const button = `
+          <button id="examBtn${index + 1}" class="btn buttonColor choiceBtn ${
+          choice === question.correctAnswer ? "correct-answer" : "wrong-answer"
+        }">${choice}</button>
+        `;
+        choices += button;
+      });
+      questionList += `
+        <div class="choice quest${index+1} invisible">
+        <h2 class="examQuestion" id="examQuestion">${question.newQuestion}</h2>
+            
+        <div class="d-grid gap-2 col-4 mx-auto" id="examBtns">
+          ${choices}
+          </div>
+        </div>
+      `;
+    });
+    return questionList;
+  }
+
+  function renderLeaderBoard() {
+    var rows = "";
+    getLocal().forEach(function ({ initials, score }, i) {
+      rows += `<tr>
+          <th scope="row">${i + 1}</th>
+          <td id="userName" colspan="1">${initials}</td>
+          <td id="userScore">${score}</td>
+        </tr>`;
+    });
+    scoreBoard.innerHTML = rows;
+  }
+
+startBtn.addEventListener("click", function startQuiz(event) {
+  event.preventDefault();
+  hideStartBtn();
+  timer = setInterval(clock, 1000);
+  time = 15;
+  countdown.textContent = time;
+});
+
+
+
+if (quizShow) quizShow.innerHTML = renderQuestions();
+
+document.querySelector(".choice").classList.remove("invisible");
 
 //need an event to select answers
+document.addEventListener("click", function (event) {
+  console.log(event.target);
+  if (event.target.classList.contains("choiceBtn")) {
+    if (event.target.classList.contains("correct-answer")) {
+      score += 1;
+      time += 5;
+    } else {
+      score -= 1;
+      time -= 2;
+    }
+    if (questionIndex >= 5) {
+      endGame();
+    }
+    document
+      .querySelectorAll(".choice")
+      [questionIndex].classList.add("invisible");
+    document
+      .querySelectorAll(".choice")
+      [++questionIndex].classList.remove("invisible");
+  }
+});
 
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("endBtn")) {
+      event.preventDefault();
+      setLocal();
+      window.location.href = "leaderboard.html";
+    }
+  });
 
+  if (document.getElementById("leaderBoard")) {
+    renderLeaderBoard();
+  }
+//local storage
 
-//need an event move to next question
+function setLocal() {
+  let result = getLocal();
+  let userValues = { initials: initials.value, score: score };
+  result.push(userValues);
+  let finalValues = JSON.stringify(result);
+  localStorage.setItem("User-Info", finalValues);
+}
+
+function getLocal() {
+  var retrieve = localStorage.getItem("User-Info");
+  if (retrieve === null) {
+    return [];
+  }
+  return JSON.parse(retrieve);
+}
